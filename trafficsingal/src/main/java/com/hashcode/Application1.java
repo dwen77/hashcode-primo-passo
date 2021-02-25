@@ -1,6 +1,8 @@
 package com.hashcode;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,9 +16,22 @@ public class Application1 {
 
     public Map<String, Street> streets;
     public List<List<String>> carPaths;
+    public int simulationDuration;
+    public int points;
 
-    public static void main(String[] args) {
 
+    public static void main(String[] args) throws Exception {
+        Application1 app = new Application1();
+        app.readInput(args[0]);
+    }
+
+    public void readInput(String fileName) throws Exception {
+        BufferedReader bf = new BufferedReader(new FileReader(fileName));
+        Integer[] metaInfo = getMetaInfo(bf);
+        this.simulationDuration = metaInfo[0];
+        this.points = metaInfo[4];
+        this.streets = createStreets(bf, metaInfo[2]);
+        this.carPaths = createCarPaths(bf, metaInfo[3]);
     }
 
     public Integer[] getMetaInfo(BufferedReader is) throws IOException {
