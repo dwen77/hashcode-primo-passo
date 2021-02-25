@@ -29,8 +29,26 @@ public class Application1 {
     }
 
     private void writeOutput(String inputFileName) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter("out-"+inputFileName));
-        bw.write();
+        BufferedWriter bw = new BufferedWriter(new FileWriter("out-" + inputFileName));
+        bw.write(result.size());
+        bw.write('\n');
+        result.values().forEach(l -> {
+                    try {
+                        bw.write(l.size());
+                        bw.write('\n');
+                        l.forEach(schedule -> {
+                            try {
+                                bw.write(schedule.toString());
+                                bw.write('\n');
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+        );
     }
 
     public void readInput(String fileName) throws Exception {
