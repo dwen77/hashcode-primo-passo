@@ -1,12 +1,12 @@
 package com.hashcode;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
+import java.io.BufferedWriter;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +18,19 @@ public class Application1 {
     public List<List<String>> carPaths;
     public int simulationDuration;
     public int points;
+    public Map<Integer, List<Schedule>> result;
 
 
     public static void main(String[] args) throws Exception {
         Application1 app = new Application1();
         app.readInput(args[0]);
+        //apply the algorithm
+        app.writeOutput(args[0]);
+    }
+
+    private void writeOutput(String inputFileName) throws IOException {
+        BufferedWriter bw = new BufferedWriter(new FileWriter("out-"+inputFileName));
+        bw.write();
     }
 
     public void readInput(String fileName) throws Exception {
@@ -74,6 +82,21 @@ public class Application1 {
             this.start = start;
             this.end = end;
             this.time = time;
+        }
+    }
+
+    private class Schedule {
+        String streetName;
+        int time;
+
+        public Schedule(String streetName, int time) {
+            this.streetName = streetName;
+            this.time = time;
+        }
+
+        @Override
+        public String toString() {
+            return streetName + ' ' + time;
         }
     }
 }
